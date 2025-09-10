@@ -22,8 +22,6 @@ export class WaterVolume extends GameObject {
   constructor(world, { x=0, y=0, z=0, color='#4aa3ff', size=2000 } = {}) {
     super(world, { groups: ['all', 'water'] })
 
-    const scene = this.world.third.scene
-
     // water params
     const waterParams = {
       waterColor: color,
@@ -44,7 +42,7 @@ export class WaterVolume extends GameObject {
     water.rotation.x = -Math.PI / 2
     water.position.set(x, y, z)
 
-    scene.add(water)
+    world.scene.add(water)
 
     this.object3D = water
     this.body = null
