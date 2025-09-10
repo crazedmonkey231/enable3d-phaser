@@ -1,5 +1,25 @@
 import { StatPart, StatTracker, partTypes } from './StatComponent.js'
 
+/**
+ * HealthComponent manages an entity's health, regeneration, and armor stats.
+ * Extends StatTracker to provide stat tracking and manipulation.
+ *
+ * @class
+ * @extends StatTracker
+ *
+ * @param {Object} parent - The parent entity or object this component is attached to.
+ * @param {Object} [options] - Configuration options for the health component.
+ * @param {number} [options.health=100] - Initial health value.
+ * @param {number} [options.regenRate=0] - Health regeneration rate per second.
+ * @param {number} [options.armor=0] - Armor value that reduces incoming damage.
+ *
+ * @property {boolean} debug - If true, enables debug logging.
+ *
+ * @method compStart - Called when the component starts; logs initial stats if debug is enabled.
+ * @method compUpdate - Called every update tick; handles health regeneration and checks for death.
+ * @method damage - Inflicts damage, reduced by armor, and logs the result if debug is enabled.
+ * @method heal - Heals the component by a specified amount.
+ */
 export class HealthComponent extends StatTracker {
   constructor(parent, { health = 100, regenRate = 0, armor = 0 } = {}) {
     super(parent, "HealthComponent", { 
