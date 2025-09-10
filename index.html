@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>enable3d + Phaser • itch-ready</title>
+    <style>
+      html, body, #app { height: 100%; margin: 0; background: #202025; }
+      #overlay {
+        position: absolute; left: 12px; top: 12px; padding: 8px 10px;
+        font-family: system-ui, Arial, sans-serif; font-size: 14px;
+        background: rgba(0,0,0,.55); color: #fff; border-radius: 8px; z-index: 2;
+      }
+      canvas { display: block; }
+    </style>
+  </head>
+  <body>
+    <div id="app"></div>
+    <div id="overlay">Phaser + enable3d • orbit + physics demo</div>
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>
