@@ -18,7 +18,7 @@ export class HealthComponent extends StatTracker {
     // auto-regen
     const regenRate = this.getStat('regenRate')
     if (regenRate > 0) {
-      this.addStatPart('health', new StatPart(partTypes.HEAL, regenRate * dt))
+      this.addStatPart('health', new StatPart(partTypes.INCREASE, regenRate * dt))
     }
     const collapsedHealth = this.collapseStatParts('health')
     if (collapsedHealth <= 0) {
@@ -33,7 +33,7 @@ export class HealthComponent extends StatTracker {
   damage(amount) {
     const armor = this.getStat('armor')
     const effectiveDamage = Math.max(0, amount - armor)
-    this.addStatPart('health', new StatPart(partTypes.DAMAGE, -effectiveDamage))
+    this.addStatPart('health', new StatPart(partTypes.DECREASE, -effectiveDamage))
     if(this.debug) console.log(`HealthComponent: Took ${effectiveDamage} damage (after armor ${armor}).`)
   }
 
@@ -42,6 +42,6 @@ export class HealthComponent extends StatTracker {
    * @param {number} amount - The amount to heal.
    */
   heal(amount) {
-    this.addStatPart('health', new StatPart(partTypes.HEAL, amount))
+    this.addStatPart('health', new StatPart(partTypes.INCREASE, amount))
   }
 }

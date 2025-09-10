@@ -150,7 +150,6 @@ export class SunSky extends GameObject {
     // Fade sun/ambient at night
     const night = elevation < 0;
     const sunIntensity = night ? 0 : this.preset.sunIntensity * (elevation / 80);
-    const ambientIntensity = night ? this.preset.ambient * 2 : this.preset.ambient;
 
     // Update sky uniforms
     let cfg = this.preset

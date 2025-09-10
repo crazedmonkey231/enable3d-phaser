@@ -16,7 +16,7 @@
 	- `AudioManager` for spatial and ambient sound, with easy 3D audio playback.
 
 - **Postprocessing:**
-	- `PostFXManager` for dynamic Three.js post-processing (bloom, outline, pixelation, toon, etc).
+	- `PostFxManager` for dynamic Three.js post-processing (bloom, outline, pixelation, toon, etc).
 	- Easily add, remove, or configure effects at runtime.
 
 - **Starter Objects:**
