@@ -1,14 +1,29 @@
 // Unique ID generator for GameObjects
 export let _GO_ID = 1
 
-// Body types (for setting up physics body)
+
+/**
+ * Enum for Rigidbody flags.
+ * @readonly
+ * @enum {number}
+ * @property {number} DYNAMIC - Indicates a dynamic rigidbody that is affected by physics and can move.
+ * @property {number} STATIC - Indicates a static rigidbody that does not move and is not affected by physics.
+ * @property {number} KINEMATIC - Indicates a kinematic rigidbody that is moved by code but not affected by physics forces.
+ */
 export let GO_RIGIDBODY_FLAGS = {
   DYNAMIC: 0,
   STATIC: 1,
   KINEMATIC: 2
 }
 
-// Base class for components that can be attached to GameObjects
+/**
+ * Represents a component that can be attached to a game object.
+ * Components encapsulate logic and behavior that can be added to game objects.
+ *
+ * @class
+ * @param {Object} parent - The parent game object to which this component is attached.
+ * @param {string} name - The name of the component.
+ */
 export class GameObjectComponent {
   constructor(parent, name) {
     this.parent = parent
@@ -24,7 +39,40 @@ export class GameObjectComponent {
   }
 }
 
-// GameObject: has optional 3D object, physics body, components, groups
+/**
+ * Represents a game object within the world, supporting components, groups, and optional 3D/physics integration.
+ *
+ * @class
+ * @param {object} world - The world instance this object belongs to.
+ * @param {object} [options] - Optional parameters.
+ * @param {string|null} [options.name=null] - Name of the object. If not provided, a unique name is generated.
+ * @param {Array<string>} [options.groups=[]] - Initial group names to add this object to.
+ * @param {Array<Function>} [options.components=[]] - Component constructors to attach to this object.
+ *
+ * @property {object} world - Reference to the world instance.
+ * @property {object} scene - Reference to the scene (from world).
+ * @property {number} id - Unique identifier for the object.
+ * @property {string} name - Name of the object.
+ * @property {boolean} alive - Whether the object is alive.
+ * @property {boolean} visible - Whether the object is visible.
+ * @property {Set<string>} groups - Set of group names this object belongs to.
+ * @property {object|null} object3D - Optional 3D object (e.g., THREE.Object3D).
+ * @property {object|null} body - Optional physics body.
+ * @property {boolean} dirty - Flag indicating if the physics body needs an update.
+ * @property {object} components - Map of component instances by name.
+ *
+ * @method start - Called once on the first frame after being added to the world.
+ * @method update - Called every frame; updates components and physics state.
+ * @method destroy - Marks the object as dead and schedules cleanup.
+ * @method onDestroy - Override for custom cleanup logic.
+ * @method _destroyInternal - Internal cleanup called by the world.
+ * @method _disposeDeep - Recursively disposes geometries and materials.
+ * @method addTo - Adds the object to one or more groups.
+ * @method removeFrom - Removes the object from one or more groups.
+ * @method playSound - Plays a sound at the object's position or directly.
+ * @method addComponent - Adds a component to the object.
+ * @method removeComponent - Removes a component from the object by name.
+ */
 export class GameObject {
   constructor(world, { name = null, groups = [], components = []} = {}) {
     this.world = world

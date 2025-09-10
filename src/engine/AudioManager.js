@@ -22,6 +22,18 @@ export const tracks = {
 
 // AudioManager --------------------------------------------------------------
 
+/**
+ * Manages 3D spatial audio for a THREE.js scene using Howler.js.
+ * 
+ * Handles attaching and updating the audio listener to follow a camera,
+ * playing spatialized audio tracks at 3D object positions, and managing
+ * master volume and mute state. Also ensures audio unlocks on first user gesture.
+ *
+ * @class
+ * @example
+ * const audioManager = new AudioManager(scene);
+ * audioManager.playTrackAt(mesh, soundTrack);
+ */
 export class AudioManager {
   constructor(scene){
     this.scene = scene

@@ -3,7 +3,13 @@ import { AudioManager } from './AudioManager.js'
 import { PostFXManager } from './PostFxManager.js'
 import { World } from './World.js'
 
-// Base scene class to extend from
+
+/**
+ * Represents the main game scene, extending Scene3D to provide 3D capabilities.
+ * Manages the world, audio, and post-processing effects.
+ *
+ * @extends Scene3D
+ */
 export class GameScene extends Scene3D {
   constructor(sceneName) {
     super({ key: sceneName });

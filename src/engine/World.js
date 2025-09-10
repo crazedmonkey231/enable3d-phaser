@@ -22,6 +22,16 @@ import * as THREE from 'three'
 //   }
 // })
 
+/**
+ * The World class manages game objects, groups, and collision detection within a 3D scene.
+ * It provides methods for adding/removing objects, grouping, updating, and collision queries.
+ * 
+ * @class
+ * @example
+ * const world = new World(scene);
+ * world.add(gameObject);
+ * world.update();
+ */
 export class World {
   constructor(scene) {
     this.scene = scene

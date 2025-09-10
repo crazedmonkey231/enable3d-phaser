@@ -23,10 +23,63 @@ import { EffectComposer,
   AfterimagePass
 } from 'three/examples/jsm/Addons.js'
 
+
+/**
+ * PostFXManager manages post-processing effects (post-processing passes) for a 3D scene using THREE.js and EffectComposer.
+ * 
+ * It provides a flexible API to add, remove, enable, disable, and configure a variety of post-processing passes such as Bloom, FXAA, Outline, SSR, SMAA, Pixelate, LUT, Halftone, Glitch, Afterimage, and more.
+ * 
+ * The manager ensures correct pass ordering, handles resizing, and offers convenience methods for common effects.
+ * 
+ * @class
+ * @example
+ * const fx = new PostFXManager(scene);
+ * fx.useBloom();
+ * fx.useFXAA();
+ * fx.enable('bloom', false);
+ * fx.set('bloom', 'strength', 2.0);
+ * fx.tween('bloom', { strength: 1.0 }, 500);
+ * 
+ * @param {Phaser.Scene} scene - The Phaser scene containing the `third` property with THREE.js renderer, scene, and camera.
+ * 
+ * @property {THREE.Scene} scene - The THREE.js scene.
+ * @property {THREE.Camera} camera - The THREE.js camera.
+ * @property {THREE.WebGLRenderer} renderer - The THREE.js renderer.
+ * @property {EffectComposer} composer - The EffectComposer instance managing the passes.
+ * 
+ * @method add(name, pass, options) - Add a custom pass.
+ * @method remove(name) - Remove and dispose a pass by name.
+ * @method enable(name, enabled) - Enable or disable a pass.
+ * @method get(name) - Get the underlying pass by name.
+ * @method set(name, path, value) - Set a deeply-nested property on a pass.
+ * @method update(timeSec, dtSec) - Call update hooks on passes.
+ * @method resize(width, height) - Resize renderer, composer, and passes.
+ * @method forceResize() - Force a resize (e.g., after canvas size changes).
+ * @method tween(name, props, duration, ease, yoyo, repeat) - Tween a numeric property on a pass.
+ * 
+ * @method useShader(name, shaderDef, options) - Add a custom ShaderPass.
+ * @method useBloom(name, params, options) - Add a Bloom pass.
+ * @method useFXAA(name, options) - Add an FXAA pass.
+ * @method useOutline(name, params, options) - Add an Outline pass.
+ * @method setOutlineSelection(objectsArray, name) - Set selected objects for Outline pass.
+ * @method useOutput(name, options) - Add an Output pass.
+ * @method useFilm(name, params, options) - Add a Film pass.
+ * @method useToon(name, params, options) - Add a Toon (Posterize) pass.
+ * @method useBokeh(name, params, options) - Add a Bokeh pass.
+ * @method useSSR(name, params, options) - Add a SSR pass.
+ * @method useSMAA(name, params, options) - Add a SMAA pass.
+ * @method useSSAA(name, params, options) - Add a SSAA pass.
+ * @method useSAO(name, params, options) - Add a SAO pass.
+ * @method useTAA(name, params, options) - Add a TAA pass.
+ * @method usePixelate(name, params, options) - Add a Pixelate pass (replaces base RenderPass).
+ * @method restoreBaseRender() - Restore the normal RenderPass as the base.
+ * @method useDotScreen(name, params, options) - Add a DotScreen pass.
+ * @method useLUT(name, params, options) - Add a LUT pass.
+ * @method useHalftone(name, params, options) - Add a Halftone pass.
+ * @method useGlitch(name, params, options) - Add a Glitch pass.
+ * @method useAfterImage(name, params, options) - Add an Afterimage pass.
+ */
 export class PostFXManager {
-  /**
-   * @param {Scene3D} s - your Phaser Scene3D (from @enable3d/phaser-extension)
-   */
   constructor (scene) {
     if (!scene.third?.composer)
       scene.third.composer = new EffectComposer(scene.third.renderer)
