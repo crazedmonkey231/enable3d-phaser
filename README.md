@@ -2,8 +2,6 @@
 
 - Phaser 3 + `@enable3d/phaser-extension`
 - `base: './'` in Vite for itch
-- Ammo from `${import.meta.env.BASE_URL}lib`
-- `postinstall` copies `ammo.js` builds into `public/lib`
 
 ## Run
 ```bash
