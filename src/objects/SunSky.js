@@ -56,7 +56,7 @@ export class SunSky extends GameObject {
     this.lights = lights
     this.object3D = new Sky();
     this.object3D.scale.setScalar(10000);
-    this.world.scene.third.scene.add(this.object3D)
+    this.world.scene.add(this.object3D)
     this.body = null
     this.sun = new THREE.Vector3();
     this.time = startTime * dayLength; // seconds
@@ -65,7 +65,7 @@ export class SunSky extends GameObject {
     this.dirty = true;
     this.active = active;
 
-    const r = this.world.scene.third.renderer
+    const r = this.world.renderer
     r.toneMapping = THREE.ACESFilmicToneMapping
     r.outputColorSpace = THREE.SRGBColorSpace
 
@@ -164,7 +164,7 @@ export class SunSky extends GameObject {
     uniforms.mieDirectionalG.value  = cfg.mieDirectionalG
 
     // renderer exposure tracks the sky look
-    this.world.scene.third.renderer.toneMappingExposure = cfg.exposure
+    this.world.renderer.toneMappingExposure = cfg.exposure
 
     const phi = THREE.MathUtils.degToRad(90 - elevation);
     const theta = THREE.MathUtils.degToRad(azimuth);
@@ -214,12 +214,12 @@ export class SunSky extends GameObject {
 
       this._pmremRT?.dispose()
       this._pmremRT = this.pmrem.fromScene(this._envSky)
-      this.world.scene.third.scene.environment = this._pmremRT.texture
+      this.world.environment = this._pmremRT.texture
       this._envCooldown = 1
     }
 
     // Broadcast sun direction so water (and others) can react immediately
-    this.world.scene.events.emit('sun-changed', this.sun.clone())
+    this.world.events.emit('sun-changed', this.sun.clone())
 
     // Optional: if you’re using the World groups, push sun to any water objects:
     const g = this.world.getGroup?.('water')

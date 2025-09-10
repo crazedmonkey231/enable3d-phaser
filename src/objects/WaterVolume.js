@@ -22,8 +22,7 @@ export class WaterVolume extends GameObject {
   constructor(world, { x=0, y=0, z=0, color='#4aa3ff', size=2000 } = {}) {
     super(world, { groups: ['all', 'water'] })
 
-    const third = this.world.scene.third
-    const { scene } = third
+    const scene = this.world.third.scene
 
     // water params
     const waterParams = {

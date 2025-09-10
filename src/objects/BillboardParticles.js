@@ -30,7 +30,7 @@ export class BillboardParticles extends GameObject {
     this.object3D = particles
     this.object3D.position.set(x, y, z)
     this.body = null
-    world.scene.third.scene.add(this.object3D)
+    world.scene.add(this.object3D)
   }
 
   update(dt) {

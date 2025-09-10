@@ -6,10 +6,10 @@ import { HealthComponent } from '../components/HealthComponent.js'
 export class ThirdPersonCharacter extends GameObject {
   constructor(world, { x=0, y=0, z=0, height=1, color='blue'} = {}) {
     super(world, { groups: ['all', 'players'], components: [ HealthComponent ]})
-    this.camera = world.scene.third.camera
+    this.camera = world.camera
 
     // create with physics
-    const mesh = world.scene.third.physics.add.capsule(
+    const mesh = world.physics.add.capsule(
       { x, y, z, radius: height / 2, height, mass: 1, collisionFlags: GO_RIGIDBODY_FLAGS.KINEMATIC },
       { lambert: { color: color, emissive: 0xaaaaff, emissiveIntensity: 0} }
     )
@@ -17,11 +17,11 @@ export class ThirdPersonCharacter extends GameObject {
     this.body = mesh.body
 
     this.keys = {
-      a: this.world.scene.input.keyboard.addKey('a'),
-      w: this.world.scene.input.keyboard.addKey('w'),
-      d: this.world.scene.input.keyboard.addKey('d'),
-      s: this.world.scene.input.keyboard.addKey('s'),
-      space: this.world.scene.input.keyboard.addKey(32)
+      a: this.world.keyboard.addKey('a'),
+      w: this.world.keyboard.addKey('w'),
+      d: this.world.keyboard.addKey('d'),
+      s: this.world.keyboard.addKey('s'),
+      space: this.world.keyboard.addKey(32)
     }
 
     // Over-the-shoulder camera offset (right-handed, z forward)

@@ -14,11 +14,11 @@ export class Player extends GameObject {
     this.object3D = mesh
     this.body = mesh.body
     this.keys = {
-      a: this.world.scene.input.keyboard.addKey('a'),
-      w: this.world.scene.input.keyboard.addKey('w'),
-      d: this.world.scene.input.keyboard.addKey('d'),
-      s: this.world.scene.input.keyboard.addKey('s'),
-      space: this.world.scene.input.keyboard.addKey(32)
+      a: this.world.keyboard.addKey('a'),
+      w: this.world.keyboard.addKey('w'),
+      d: this.world.keyboard.addKey('d'),
+      s: this.world.keyboard.addKey('s'),
+      space: this.world.keyboard.addKey(32)
     }
     this.speed = 10
   }

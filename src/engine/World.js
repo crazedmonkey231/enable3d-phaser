@@ -34,7 +34,22 @@ import * as THREE from 'three'
  */
 export class World {
   constructor(scene) {
-    this.scene = scene
+    this.scene3D = scene
+    this.input = scene.input
+    this.keyboard = scene.input.keyboard
+    this.events = scene.events
+
+    // enable3d handles
+
+    const third = scene.third
+    this.third = third
+    this.composer = third.composer
+    this.renderer = third.renderer
+    this.scene = third.scene
+    this.camera = third.camera
+    this.physics = third.physics
+    this.environment = third.environment
+
     this.objects = new Set()
     this.groups = new Map()    // name -> Set<GameObject>
     this.toAdd = []

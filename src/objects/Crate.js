@@ -8,7 +8,7 @@ export class Crate extends GameObject {
   constructor(world, { x=0, y=2, z=0, size=1, color='blue'} = {}) {
     super(world, { groups: ['all', 'crates'], components: [ HealthComponent ]})
     // create with physics
-    const mesh = world.scene.third.physics.add.box(
+    const mesh = world.physics.add.box(
       { x, y, z, width: size, height: size, depth: size, mass: 1, collisionFlags: GO_RIGIDBODY_FLAGS.KINEMATIC, castShadow: true },
       { lambert: { color: color, emissive: 0xaaaaff, emissiveIntensity: 0 } }
     )

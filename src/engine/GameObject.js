@@ -76,7 +76,7 @@ export class GameObjectComponent {
 export class GameObject {
   constructor(world, { name = null, groups = [], components = []} = {}) {
     this.world = world
-    this.scene = world.scene
+    this.scene3D = world.scene3D
     this.id = _GO_ID++
     this.name = name ?? `obj-${this.id}`
     this.alive = true
@@ -128,7 +128,7 @@ export class GameObject {
 
     // 1) Physics body (enable3d supports physics.destroy(body)) 
     //    (works whether you kept body separately or on object3D)
-    const physics = this.scene.physics
+    const physics = this.scene3D.physics
     const body = this.body ?? this.object3D?.body
     if (physics?.destroy && body) {
       physics.destroy(body) // destroys Ammo rigid body cleanly. :contentReference[oaicite:0]{index=0}
