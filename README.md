@@ -23,7 +23,8 @@
 	- `SunSky`: Dynamic day/night sky and lighting with weather presets.
 	- `ThirdPersonCharacter`: Smooth, velocity-based third-person controller with over-the-shoulder camera.
 	- `Crate`: Simple physics object for testing.
-	- `Basic Water`: (see `Water.js`) Example of animated water surface (if present).
+  - `Basic Water`: (see `Water.js`) Example of animated water surface (if present).
+  - `GPGPUWaterPBR`: Advanced physically-based water simulation using GPGPU techniques. Includes splash/radial wave code in the update loop and on mouse down for interactive water effects.
 
 ## Run
 ```bash

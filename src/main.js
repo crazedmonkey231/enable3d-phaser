@@ -23,7 +23,7 @@ class MainScene extends GameScene {
 
     const { lights } = await this.third.warpSpeed('-sky', 'orbitControls', '-ground')
     this.third.scene.background = new THREE.Color(0x000000);
-    this.third.camera.position.set(375, 300, -375);
+    this.third.camera.position.set(37, 30, -37);
     this.third.camera.lookAt(this.third.scene.position);
 
     // postprocessing
@@ -39,15 +39,22 @@ class MainScene extends GameScene {
     new Crate(this.world, { x: 0, y: -4, z: 0, size: 10, color: 'green' })
     // const player = new ThirdPersonCharacter(this.world, { x: 1, y: 2, z: 0 })
     new SunSky(this.world, lights)
-    // new WaterVolume(this.world, { x: 0, y: 0, z: 0 })
-    new GPGPUWaterPBR(this.world, {
-      sizeX: 500, sizeY: 500,
+    const water = new GPGPUWaterPBR(this.world, {
+      sizeX: 100, sizeY: 100,
       simW: 128, simH: 128,
       displacementScale: 0.32,
       foamThreshold: 0.025,
       foamSharpness: 0.08,
       foamIntensity: 2.2
     })
+
+    water.addPlaneWave({
+      dir: new THREE.Vector2(1, 0),
+      wavelength: 12,
+      amplitude: 10,
+      speed: 2.0
+    })
+    
     // this.fx.setOutlineSelection([player.object3D])
 
   }

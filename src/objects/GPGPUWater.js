@@ -24,7 +24,7 @@ export class GPGPUWater extends GameObject {
     viscosity = 0.08,                 // damping
     color = '#1fa6d7'                 // base tint
   } = {}) {
-    super(world, { groups: ['water'] })
+    super(world, { groups: ['all', 'water'] })
 
     this.renderer = world.renderer
     this.scene = world.scene
