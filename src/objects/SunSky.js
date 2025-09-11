@@ -49,7 +49,7 @@ export class SunSky extends GameObject {
     dayLength = 60, // seconds for a full day cycle
     weather = 'clear', // 'clear' or 'cloudy'
     startTime = 0.2, // 0 = midnight, 0.5 = noon
-    active = true
+    active = false
   } = {}) {
     super(world, { groups: ['all', 'sky'] })
 

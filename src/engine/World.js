@@ -34,13 +34,14 @@ import * as THREE from 'three'
  */
 export class World {
   constructor(scene) {
+    // Phaser scene handles
     this.scene3D = scene
     this.input = scene.input
     this.keyboard = scene.input.keyboard
     this.events = scene.events
+    this.scale = scene.scale
 
     // enable3d handles
-
     const third = scene.third
     this.third = third
     this.composer = third.composer
@@ -50,6 +51,7 @@ export class World {
     this.physics = third.physics
     this.environment = third.environment
 
+    // game object management
     this.objects = new Set()
     this.groups = new Map()    // name -> Set<GameObject>
     this.toAdd = []

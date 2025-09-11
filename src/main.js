@@ -11,8 +11,7 @@ import { ThirdPersonCharacter } from "./objects/ThirdPersonCharacter.js";
 import { Crate } from './objects/Crate.js'
 import { SunSky } from "./objects/SunSky.js";
 import { WaterVolume } from "./objects/WaterVolume.js";
-
-
+import { GPGPUWaterPBR } from "./objects/GPGPUWaterPBR.js";
 
 class MainScene extends GameScene {
   constructor() {
@@ -22,26 +21,33 @@ class MainScene extends GameScene {
   async create() {
     await super.create();
 
-    const { lights } = await this.third.warpSpeed('-sky', '-orbitControls', '-ground')
+    const { lights } = await this.third.warpSpeed('-sky', 'orbitControls', '-ground')
     this.third.scene.background = new THREE.Color(0x000000);
-    this.third.camera.position.set(15, 50, -15);
+    this.third.camera.position.set(375, 300, -375);
     this.third.camera.lookAt(this.third.scene.position);
 
     // postprocessing
     // this.fx.usePixelate('pixelator')
     this.fx.useFXAA('fxaa')
     this.fx.useOutline('outline')
-    this.fx.useBokeh('bokeh', { focus: 30, aperture: 0.0001, maxblur: 0.01 })
+    // this.fx.useBokeh('bokeh', { focus: 30, aperture: 0.0001, maxblur: 0.01 })
     this.fx.useToon('toon', { levels: 100 })
     this.fx.useOutput('output')
     this.fx.forceResize()
 
     // world
     new Crate(this.world, { x: 0, y: -4, z: 0, size: 10, color: 'green' })
-    const player = new ThirdPersonCharacter(this.world, { x: 1, y: 2, z: 0 })
+    // const player = new ThirdPersonCharacter(this.world, { x: 1, y: 2, z: 0 })
     new SunSky(this.world, lights)
-    new WaterVolume(this.world, { x: 0, y: 0, z: 0 })
-
+    // new WaterVolume(this.world, { x: 0, y: 0, z: 0 })
+    new GPGPUWaterPBR(this.world, {
+      sizeX: 500, sizeY: 500,
+      simW: 128, simH: 128,
+      displacementScale: 0.32,
+      foamThreshold: 0.025,
+      foamSharpness: 0.08,
+      foamIntensity: 2.2
+    })
     // this.fx.setOutlineSelection([player.object3D])
 
   }
