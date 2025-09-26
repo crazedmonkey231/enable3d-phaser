@@ -22,7 +22,7 @@ import { EffectComposer,
   GlitchPass,
   AfterimagePass
 } from 'three/examples/jsm/Addons.js'
-
+import { RenderTransitionPass } from 'three/addons/postprocessing/RenderTransitionPass.js';
 
 /**
  * PostFXManager manages post-processing effects (post-processing passes) for a 3D scene using THREE.js and EffectComposer.
@@ -109,13 +109,34 @@ export class PostFXManager {
 
     // Resize hook
     // scene.scale.on('resize', (size) => this.resize(size.width, size.height))
-    this.scene3d.scale.on('resize', (size) => {
+    this._resizeHandler = (size) => {
       const W = Math.max(1, Math.floor(size.width))
       const H = Math.max(1, Math.floor(size.height))
       this.resize(W, H)
       this.camera.aspect = W / H
       this.camera.updateProjectionMatrix()
-})
+    }
+    this.scene3d.scale.on('resize', this._resizeHandler)
+  }
+
+  destroy() {
+    const scaleManager = this.scene3d?.scale;
+    if (this._resizeHandler) {
+      if (scaleManager?.off) {
+        scaleManager.off('resize', this._resizeHandler);
+      } else if (scaleManager?.removeListener) {
+        scaleManager.removeListener('resize', this._resizeHandler);
+      }
+    }
+    this._resizeHandler = null;
+    // Dispose composer and all passes
+    this.composer?.dispose?.();
+    this._passes.clear();
+    this._order = [];
+    this.scene3d = null;
+    this.renderer = null;
+    this.scene = null;
+    this.camera = null;
   }
 
   /** Insert a pass into composer after RenderPass, with optional relative position */
@@ -192,6 +213,7 @@ export class PostFXManager {
 
   /** Handle resize for composer + passes */
   resize(w, h) {
+    if (!this.renderer || !this.composer) return;
     const dpr = Math.min(2, window.devicePixelRatio || 1)
     this.renderer.setPixelRatio(dpr)
     this.renderer.setSize(w, h)
@@ -420,6 +442,13 @@ export class PostFXManager {
   /** Add an Afterimage Pass */
   useAfterImage(name = 'afterimage', { damp = 0.96 } = {}, opts = {}) {
     const pass = new AfterimagePass(damp)
+    return this.add(name, pass, opts)
+  }
+
+  /** Add a RenderTransitionPass to transition between two scenes */
+  useRenderTransition(name = 'renderTransition', texture, sceneA, cameraA, sceneB, cameraB, opts = {}) {
+    const pass = new RenderTransitionPass(sceneA, cameraA, sceneB, cameraB)
+    pass.setTexture(texture)
     return this.add(name, pass, opts)
   }
 

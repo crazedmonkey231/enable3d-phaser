@@ -10,9 +10,11 @@
   },
   "dependencies": {
     "@enable3d/phaser-extension": "^0.26.1",
+    "@pixiv/three-vrm": "^3.4.2",
     "howler": "^2.2.4",
     "phaser": "^3.80.0",
     "three": "^0.171.0"
+    
   },
   "devDependencies": {
     "vite": "^6.3.5"
